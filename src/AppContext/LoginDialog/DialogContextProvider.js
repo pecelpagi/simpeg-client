@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import DialogContext from './DialogContext';
+import AppContext from '../../AppContext';
+import * as apiServiceUtility from './api-service.utils';
 
 class DialogContextProvider extends Component {
+    static contextType = AppContext
+
     constructor() {
         super();
         this.state = {
@@ -15,6 +19,21 @@ class DialogContextProvider extends Component {
 
     componentDidMount = () => {
         this.initRules();
+        this.checkIsLoggedIn();
+    }
+
+    checkIsLoggedIn = () => {
+        const { refCollections } = this.props;
+
+        if (this.context.isLoggedIn) {
+            refCollections.dialog.current.close();
+        }
+    }
+
+    handleLogout = (onSuccessCallbackFn = () => { }) => {
+        const { refCollections } = this.props;
+
+        apiServiceUtility.handleLogout({ onShowMessager: this.context.onShowMessager, refCollections }, onSuccessCallbackFn);
     }
 
     initRules = () => {
@@ -45,9 +64,10 @@ class DialogContextProvider extends Component {
             if (errors) {
                 console.log('DEBUG-ERRORS: ', errors);
             } else {
-                console.log('DEBUG-FORM: ', formModel);
+                apiServiceUtility.handleLogin({ onShowMessager: this.context.onShowMessager, refCollections, formModel }, () => {
+                    this.context.onSetLoggedIn(true);
+                });
             }
-
         });
     }
 

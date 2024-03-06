@@ -5,7 +5,6 @@ import Header from './Header';
 import Menu from './Menu';
 import Footer from './Footer';
 import Body from './Body';
-import LoginDialog from './LoginDialog';
 
 const LayoutHeader = styled(LayoutPanel, {
   height: 100,
@@ -34,7 +33,6 @@ class App extends React.Component {
             <Body />
           </LayoutPanel>
         </Layout>
-        <LoginDialog />
       </div>
     );
   }

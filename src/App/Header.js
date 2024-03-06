@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@stitches/react';
 import Logo from '../images/icon-group-100.png';
 import CurrentTime from './CurrentTime';
+import AppContext from '../AppContext';
 
 const Box = styled('div', {});
+
+const StyledButton = styled('button', {});
 
 const WelcomeInformation = React.memo(() => {
     return (
@@ -12,12 +15,14 @@ const WelcomeInformation = React.memo(() => {
         }}>
             <strong>Halo, Administrator !</strong>
             <br />
-            Selamat Datang di Sistem Informasi Pengolahan Data Karyawan.
+            Selamat Datang di Sistem Informasi Manajemen Pegawai.
         </div>
     )
 });
 
 const Header = () => {
+    const { onLogout, isLoggedIn } = useContext(AppContext);
+
     return (
         <Box
             css={{
@@ -60,9 +65,32 @@ const Header = () => {
                 }}
             >
                 <WelcomeInformation />
-                <div>
+                <Box
+                    css={{
+                        display: 'grid',
+                        gridTemplateColumns: isLoggedIn ? 'auto auto' : 'auto',
+                        width: 'fit-content',
+                        alignSelf: 'flex-end',
+                        gap: '10px'
+                    }}
+                >
                     <CurrentTime />
-                </div>
+                    {isLoggedIn && <StyledButton
+                        onClick={onLogout}
+                        css={{
+                            background: 'transparent',
+                            border: '0',
+                            color: '#FFF',
+                            marginTop: '1px',
+                            padding: '0px',
+                            '&:hover': {
+                                cursor: 'pointer',
+                                textDecoration: 'underline'
+                            }
+                        }}
+                        type="button"
+                    >[ Logout ]</StyledButton>}
+                </Box>
             </Box>
         </Box>
     );

@@ -3,16 +3,17 @@ import { useRefCollections } from './utils';
 import DialogContextProvider from './DialogContextProvider';
 import ContentDialog from "./ContentDialog";
 
-const LoginDialog = () => {
+const LoginDialog = React.forwardRef((props, ref) => {
     const refCollections = useRefCollections();
 
     return (
         <DialogContextProvider
+            ref={ref}
             {...{ refCollections }}
         >
             <ContentDialog />
         </DialogContextProvider>
     )
-}
+});
 
 export default LoginDialog;

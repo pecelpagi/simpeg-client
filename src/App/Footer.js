@@ -14,7 +14,7 @@ const Footer = () => {
             }}
         >
             <Box css={{ flex: 1 }}>
-                Sistem Informasi Pengolahan Data Karyawan - SIMPEG v1.0.0 | Status: <span style={{ color: 'green' }}>Online</span>
+                Sistem Informasi Manajemen Pegawai - SIMPEG v1.0.0 | Status: <span style={{ color: 'green' }}>Online</span>
             </Box>
             <Box>
                 Kontak pengembang aplikasi: 085 731 762 554 (Galuh)

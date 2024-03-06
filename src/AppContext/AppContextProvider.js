@@ -1,10 +1,14 @@
 import React from 'react';
+import { Messager } from 'rc-easyui';
 import AppContext from './index';
+import LoginDialog from './LoginDialog';
+import { getToken } from '../utils';
 
 class AppContextProvider extends React.Component {
     state = {
         activeMenuIds: ['DASHBOARD'],
         lastClickedMenu: 'DASHBOARD',
+        isLoggedIn: !!getToken(),
     };
 
     handleSetLastClickedMenu = (selection, lastClickedOnly = false) => {
@@ -42,10 +46,21 @@ class AppContextProvider extends React.Component {
         })
     }
 
+    handleShowMessager = (data) => {
+        this.messager.alert(data);
+    }
+
     createContextValue = () => ({
         ...this.state,
         onSelectMenu: this.handleSetLastClickedMenu,
         onDeactivateMenu: this.handleDeactivateMenu,
+        onShowMessager: this.handleShowMessager,
+        onSetLoggedIn: (isLoggedIn) => { this.setState({ isLoggedIn }) },
+        onLogout: () => {
+            this.loginDialog.handleLogout(() => {
+                this.setState({ isLoggedIn: false });
+            });
+        },
     })
 
     render() {
@@ -56,6 +71,8 @@ class AppContextProvider extends React.Component {
         return (
             <AppContext.Provider value={contextValue}>
                 {children}
+                <LoginDialog ref={c => this.loginDialog = c} />
+                <Messager ref={c => this.messager = c}></Messager>
             </AppContext.Provider>
         );
     }

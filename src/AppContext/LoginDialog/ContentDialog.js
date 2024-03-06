@@ -11,6 +11,7 @@ const ContentDialog = () => {
             style={{ width: '400px' }}
             modal
             closable={false}
+            ref={refCollections.dialog}
         >
             <Form
                 ref={refCollections.form}
