@@ -13,7 +13,7 @@ export const handleLogin = async ({ onShowMessager, refCollections, formModel },
             title: "Error",
             icon: "error",
             msg: catchError(err)
-        })
+        });
     }
 }
 

@@ -12,3 +12,9 @@ export const logout = async () => {
 
   return response;
 };
+
+export const getDepartments = async (payload) => {
+  const response = await fetchApi("/api/departments", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
