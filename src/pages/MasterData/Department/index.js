@@ -1,11 +1,16 @@
 import React from 'react'
 import PageContextProvider from './PageContextProvider';
 import View from './View';
+import FormDialog from './FormDialog';
+import { useRefCollections } from './utils';
 
 const Department = () => {
+  const refCollections = useRefCollections();
+
   return (
-    <PageContextProvider>
+    <PageContextProvider {...{ refCollections }}>
         <View />
+        <FormDialog ref={refCollections.formDialog} />
     </PageContextProvider>
   )
 }

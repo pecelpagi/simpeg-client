@@ -52,6 +52,7 @@ class AppContextProvider extends React.Component {
 
     createContextValue = () => ({
         ...this.state,
+        messager: this.messager,
         onSelectMenu: this.handleSetLastClickedMenu,
         onDeactivateMenu: this.handleDeactivateMenu,
         onShowMessager: this.handleShowMessager,

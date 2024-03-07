@@ -16,6 +16,7 @@ class PageContextProvider extends Component {
             data: [],
             loading: false,
             search: '',
+            selectedData: null,
         }
     }
 
@@ -37,10 +38,16 @@ class PageContextProvider extends Component {
         apiServiceUtility.handleFetchData({ payload, onShowMessager: this.context.onShowMessager, setState: this.setState });
     }
 
+    handleRefreshData = () => {
+        const { pageSize, pageNumber } = this.state;
+
+        this.handleFetchData({ pageSize, pageNumber: pageNumber + 1 });
+    }
+
     handleSearchData = ({ value }) => {
         const { pageSize } = this.state;
 
-        this.setState({ search: value }, () => {
+        this.setState({ search: value, selectedData: null }, () => {
             this.handleFetchData({ pageSize, pageNumber: 1 });
         });
     }
@@ -49,12 +56,46 @@ class PageContextProvider extends Component {
         this.handleSearchData({ value: '' });
     }
 
+    handleShowFormDialog = (data = null) => {
+        const { refCollections } = this.props;
+
+        refCollections.formDialog.current.handleShowDialog(data);
+    }
+
+    handleSetSelectedData = (val) => {
+        this.setState({ selectedData: val });
+    }
+
+    handleDeleteData = () => {
+        const { refCollections } = this.props;
+        const { selectedData } = this.state;
+        const { id } = selectedData;
+
+        this.context.messager.confirm({
+            title: "Konfirmasi",
+            msg: `Apakah Anda yakin ingin menghapus "${selectedData.name}" ?`,
+            result: r => {
+              if (r) {
+                apiServiceUtility.handleDeleteData({
+                    messager: this.context.messager, refCollections,
+                    selectedId: id, onRefreshData: this.handleRefreshData,
+                    setState: this.setState,
+                });
+              }
+            }
+          });
+    }
+
     createContextValue = () => ({
         ...this.props,
         ...this.state,
         onSearchData: this.handleSearchData,
         onFetchData: this.handleFetchData,
-        onClearSearch: this.handleClearSearch
+        onRefreshData: this.handleRefreshData,
+        onClearSearch: this.handleClearSearch,
+        onSetSelectedData: this.handleSetSelectedData,
+        onShowFormDialog: this.handleShowFormDialog,
+        onDeleteData: this.handleDeleteData,
     });
 
     render() {

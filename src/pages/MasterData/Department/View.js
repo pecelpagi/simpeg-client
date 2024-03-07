@@ -5,7 +5,11 @@ import { useContext } from 'react';
 import PageContext from './PageContext';
 
 const View = () => {
-    const { search, onSearchData, data, total, pageSize, onFetchData, onClearSearch, loading } = useContext(PageContext);
+    const {
+        search, onSearchData, data, total, pageSize,
+        onFetchData, onClearSearch, loading, onSetSelectedData,
+        onShowFormDialog, selectedData, onDeleteData
+    } = useContext(PageContext);
 
     return (
         <DataGrid
@@ -22,9 +26,9 @@ const View = () => {
                     gridTemplateColumns: '1fr auto'
                 }}>
                     <Box>
-                        <LinkButton iconCls="icon-add" plain onClick={() => { }}>Tambah</LinkButton>
-                        <LinkButton iconCls="icon-edit" plain onClick={() => { }}>Ubah</LinkButton>
-                        <LinkButton iconCls="icon-cancel" plain disabled={false} onClick={() => { }}>Hapus</LinkButton>
+                        <LinkButton iconCls="icon-add" plain onClick={() => { onShowFormDialog(); }}>Tambah</LinkButton>
+                        <LinkButton iconCls="icon-edit" plain disabled={!selectedData} onClick={() => { onShowFormDialog(selectedData); }}>Ubah</LinkButton>
+                        <LinkButton iconCls="icon-cancel" plain disabled={!selectedData} onClick={() => { onDeleteData() }}>Hapus</LinkButton>
                     </Box>
                     <Box>
                         <SearchBox
@@ -49,6 +53,9 @@ const View = () => {
                 }
             }}
             onPageChange={onFetchData}
+            onSelectionChange={(selection) => {
+                onSetSelectedData(selection);
+            }}
         >
             <GridColumn field="code" title="Kode"></GridColumn>
             <GridColumn field="name" title="Name"></GridColumn>

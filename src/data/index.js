@@ -18,3 +18,21 @@ export const getDepartments = async (payload) => {
 
   return response;
 }
+
+export const createDepartment = async (payload) => {
+  const response = await fetchApi("/api/departments", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateDepartment = async (payload) => {
+  const response = await fetchApi(`/api/departments/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteDepartment = async (payload) => {
+  const response = await fetchApi(`/api/departments/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}

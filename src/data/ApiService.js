@@ -32,7 +32,6 @@ const fetchApi = async (endPoint, payload = {}, method = METHOD_TYPE.GET, option
     let fetchOptions = {
         method,
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
             ...authorization,
         },
