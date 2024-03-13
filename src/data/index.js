@@ -36,3 +36,27 @@ export const deleteDepartment = async (payload) => {
 
   return response;
 }
+
+export const getEmployees = async (payload) => {
+  const response = await fetchApi("/api/employees", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createEmployee = async (payload) => {
+  const response = await fetchApi("/api/employees", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateEmployee = async (payload) => {
+  const response = await fetchApi(`/api/employees/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteEmployee = async (payload) => {
+  const response = await fetchApi(`/api/employees/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
