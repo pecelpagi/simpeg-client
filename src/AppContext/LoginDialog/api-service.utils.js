@@ -1,7 +1,9 @@
 import * as apiService from "../../data";
 import { catchError, setToken, removeToken } from "../../utils";
 
-export const handleLogin = async ({ onShowMessager, refCollections, formModel }, onSuccessCallbackFn) => {
+export const handleLogin = async ({ onShowMessager, refCollections, formModel, setState }, onSuccessCallbackFn) => {
+    setState({ isSaving: true });
+
     try {
         const res = await apiService.login(formModel);
 
@@ -14,6 +16,8 @@ export const handleLogin = async ({ onShowMessager, refCollections, formModel },
             icon: "error",
             msg: catchError(err)
         });
+    } finally {
+        setState({ isSaving: false });
     }
 }
 

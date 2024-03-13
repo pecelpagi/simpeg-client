@@ -13,9 +13,12 @@ class DialogContextProvider extends Component {
                 username: "test",
                 password: "test",
             },
+            isSaving: false,
             rules: {},
         }
     }
+
+    setState = this.setState.bind(this);
 
     componentDidMount = () => {
         this.initRules();
@@ -64,7 +67,10 @@ class DialogContextProvider extends Component {
             if (errors) {
                 console.log('DEBUG-ERRORS: ', errors);
             } else {
-                apiServiceUtility.handleLogin({ onShowMessager: this.context.onShowMessager, refCollections, formModel }, () => {
+                apiServiceUtility.handleLogin({
+                    onShowMessager: this.context.onShowMessager,
+                    refCollections, formModel, setState: this.setState
+                }, () => {
                     this.context.onSetLoggedIn(true);
                 });
             }

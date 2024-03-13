@@ -3,7 +3,7 @@ import { Dialog, Form, FormField, TextBox, PasswordBox, LinkButton } from 'rc-ea
 import DialogContext from './DialogContext';
 
 const ContentDialog = () => {
-    const { formModel, rules, refCollections, onSubmit, onChange } = useContext(DialogContext);
+    const { isSaving, formModel, rules, refCollections, onSubmit, onChange } = useContext(DialogContext);
 
     return (
         <Dialog
@@ -24,14 +24,14 @@ const ContentDialog = () => {
             >
                 <div style={{ padding: 15 }}>
                     <FormField name="username" label="Username :">
-                        <TextBox value={formModel.username}></TextBox>
+                        <TextBox value={formModel.username} disabled={isSaving}></TextBox>
                     </FormField>
                     <FormField name="password" label="Password :" style={{ marginBottom: 10 }}>
-                        <PasswordBox value={formModel.password}></PasswordBox>
+                        <PasswordBox value={formModel.password} disabled={isSaving}></PasswordBox>
                     </FormField>
                 </div>
                 <div className="dialog-button" style={{ padding: '10px 15px' }}>
-                    <LinkButton iconCls="icon-lock" onClick={onSubmit} style={{ width: 80 }}>Login</LinkButton>
+                    <LinkButton iconCls="icon-lock" onClick={onSubmit} style={{ width: 'auto' }} disabled={isSaving}>{!isSaving ? 'Login' : 'Processing ...'}</LinkButton>
                 </div>
             </Form>
         </Dialog>
