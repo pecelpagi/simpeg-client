@@ -13,6 +13,7 @@ class DialogContextProvider extends Component {
             selectedId: '',
             formModel: createFormModel(),
             rules: {},
+            isSaving: false,
         }
     }
 
@@ -59,13 +60,21 @@ class DialogContextProvider extends Component {
             if (errors) {
                 console.log('DEBUG-ERRORS: ', errors);
             } else {
-                if (!selectedId) {
-                    apiServiceUtility.handleCreateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, onRefreshData });
-                } else {
-                    apiServiceUtility.handleUpdateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, selectedId, onRefreshData });
-                }
-            }
+                this.processingSubmitData({ selectedId, refCollections, formModel, onRefreshData });
+            } 
         });
+    }
+
+    processingSubmitData = async ({ selectedId, refCollections, formModel, onRefreshData }) => {
+        this.setState({ isSaving: true });
+
+        if (!selectedId) {
+            await apiServiceUtility.handleCreateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, onRefreshData });
+        } else {
+            await apiServiceUtility.handleUpdateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, selectedId, onRefreshData });
+        }
+
+        this.setState({ isSaving: false });
     }
 
     createContextValue = () => ({

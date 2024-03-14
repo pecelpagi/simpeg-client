@@ -61,6 +61,7 @@ const View = () => {
             <GridColumn field="name" title="Nama"></GridColumn>
             <GridColumn field="employeePositionName" title="Jabatan"></GridColumn>
             <GridColumn field="birthdateAndPlace" title="Tempat Tanggal Lahir"></GridColumn>
+            <GridColumn field="departmentName" title="Unit / Department"></GridColumn>
         </DataGrid>
     )
 }

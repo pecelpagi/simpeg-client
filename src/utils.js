@@ -19,3 +19,102 @@ export const catchError = (e) => {
 
     return message;
 };
+
+export const staticData = {
+    genders: [
+        {
+            value: 'M',
+            text: 'Laki - Laki'
+        },
+        {
+            value: 'F',
+            text: 'Perempuan'
+        }
+    ],
+    religions: [
+        {
+            value: 'I',
+            text: 'Islam'
+        },
+        {
+            value: 'CP',
+            text: 'Protestan'
+        },
+        {
+            value: 'CC',
+            text: 'Katolik'
+        },
+        {
+            value: 'H',
+            text: 'Hindu'
+        },
+        {
+            value: 'B',
+            text: 'Buddha'
+        },
+        {
+            value: 'K',
+            text: 'Konghucu'
+        }
+    ],
+    citizen: [
+        {
+            value: 'I',
+            text: 'Indonesia'
+        },
+        {
+            value: 'F',
+            text: 'Luar Negeri'
+        }
+    ],
+    maritalStatus: [
+        {
+            value: 'S',
+            text: 'Belum Kawin'
+        },
+        {
+            value: 'M',
+            text: 'Kawin'
+        }
+    ],
+    incomeTaxStatus: [
+        {
+            value: 'TK',
+            text: 'TK'
+        },
+        {
+            value: 'K_0',
+            text: 'K/0'
+        },
+        {
+            value: 'K_1',
+            text: 'K/1'
+        },
+        {
+            value: 'K_2',
+            text: 'K/2'
+        },
+        {
+            value: 'K_3',
+            text: 'K/3'
+        },
+    ],
+    bloodTypes: [
+        {
+            value: 'A',
+            text: 'A'
+        },
+        {
+            value: 'AB',
+            text: 'AB'
+        },
+        {
+            value: 'B',
+            text: 'B'
+        },
+        {
+            value: 'O',
+            text: 'O'
+        },
+    ]
+}

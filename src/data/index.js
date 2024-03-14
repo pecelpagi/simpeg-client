@@ -60,3 +60,9 @@ export const deleteEmployee = async (payload) => {
 
   return response;
 }
+
+export const getEmployeePositions = async (payload) => {
+  const response = await fetchApi("/api/employee_positions", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}

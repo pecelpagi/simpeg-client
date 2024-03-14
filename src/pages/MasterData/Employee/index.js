@@ -9,8 +9,8 @@ const Employee = () => {
 
   return (
     <PageContextProvider {...{ refCollections }}>
-        <View />
-        <FormDialog ref={refCollections.formDialog} />
+      <View />
+      <FormDialog ref={refCollections.formDialog} />
     </PageContextProvider>
   )
 }

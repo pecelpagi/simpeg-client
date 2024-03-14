@@ -3,6 +3,7 @@ import DialogContext from './DialogContext';
 import * as apiServiceUtility from '../api-service.utils';
 import { createFormModel, createFormRules } from './utils';
 import AppContext from '../../../../AppContext';
+import moment from 'moment';
 
 class DialogContextProvider extends Component {
     static contextType = AppContext
@@ -13,6 +14,9 @@ class DialogContextProvider extends Component {
             selectedId: '',
             formModel: createFormModel(),
             rules: {},
+            selectedDepartment: null,
+            selectedEmployeePosition: null,
+            isSaving: false,
         }
     }
 
@@ -31,24 +35,44 @@ class DialogContextProvider extends Component {
 
     handleShowDialog = (data = null) => {
         const { refCollections } = this.props;
-
+        // debugger;
         this.setState({
-           selectedId: data ? data.id : null,
-           formModel: createFormModel(data) 
+            selectedId: data ? data.id : null,
+            formModel: createFormModel(data),
+            selectedDepartment: data && data.department ? data.department : null,
+            selectedEmployeePosition: data && data.employeePosition ? data.employeePosition : null
         }, () => {
             refCollections.dialog.current.open();
+            setTimeout(() => {
+                refCollections.dialog.current.center();
+            }, 100);
         });
     }
 
     handleChange = (name, value) => {
         const { formModel } = this.state
 
-        const newFormModel = {
-            ...formModel,
-            [name]: value,
+        let newValue = value;
+        let newState = {};
+
+        if (name === 'departmentId' && value && typeof value === 'object') {
+            newValue = value.id;
+            newState = {
+                selectedDepartment: value,
+            }
+        } else if (name === 'employeePositionId' && value && typeof value === 'object') {
+            newValue = value.id;
+            newState = {
+                selectedEmployeePosition: value,
+            }
         }
 
-        this.setState({ formModel: newFormModel });
+        const newFormModel = {
+            ...formModel,
+            [name]: newValue,
+        }
+
+        this.setState({ formModel: newFormModel, ...newState });
     }
 
     handleSubmit = () => {
@@ -59,20 +83,48 @@ class DialogContextProvider extends Component {
             if (errors) {
                 console.log('DEBUG-ERRORS: ', errors);
             } else {
-                if (!selectedId) {
-                    apiServiceUtility.handleCreateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, onRefreshData });
-                } else {
-                    apiServiceUtility.handleUpdateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel, selectedId, onRefreshData });
-                }
+                this.processingSubmitData({ formModel, selectedId, refCollections, onRefreshData });
             }
         });
+    }
+
+    processingSubmitData = async ({ formModel, selectedId, refCollections, onRefreshData }) => {
+        const reformatFormModel = {
+            ...formModel,
+            birthdate: moment(formModel.birthdate).format('YYYY-MM-DD'),
+            entryDate: moment(formModel.entryDate).format('YYYY-MM-DD')
+        }
+
+        this.setState({ isSaving: true });
+
+        if (!selectedId) {
+            await apiServiceUtility.handleCreateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel: reformatFormModel, onRefreshData });
+        } else {
+            await apiServiceUtility.handleUpdateData({ onShowMessager: this.context.onShowMessager, refCollections, formModel: reformatFormModel, selectedId, onRefreshData });
+        }
+
+        this.setState({ isSaving: false });
+    }
+
+    handleShowDepartmentDialog = () => {
+        const { refCollections } = this.props;
+
+        refCollections.departmentDialog.current.handleShowDialog();
+    }
+
+    handleShowEmployeePositionDialog = () => {
+        const { refCollections } = this.props;
+
+        refCollections.employeePositionDialog.current.handleShowDialog();
     }
 
     createContextValue = () => ({
         ...this.props,
         ...this.state,
         onChange: this.handleChange,
-        onSubmit: this.handleSubmit
+        onSubmit: this.handleSubmit,
+        onShowDepartmentDialog: this.handleShowDepartmentDialog,
+        onShowEmployeePositionDialog: this.handleShowEmployeePositionDialog
     });
 
     render() {

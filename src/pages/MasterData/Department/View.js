@@ -58,7 +58,7 @@ const View = () => {
             }}
         >
             <GridColumn field="code" title="Kode"></GridColumn>
-            <GridColumn field="name" title="Name"></GridColumn>
+            <GridColumn field="name" title="Nama Unit / Department"></GridColumn>
         </DataGrid>
     )
 }

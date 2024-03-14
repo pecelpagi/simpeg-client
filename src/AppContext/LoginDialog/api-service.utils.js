@@ -25,7 +25,6 @@ export const handleLogout = async ({ onShowMessager, refCollections }, onSuccess
     try {
         await apiService.logout();
 
-        removeToken();
         refCollections.dialog.current.open();
         onSuccessCallbackFn();
     } catch (err) {
@@ -34,5 +33,7 @@ export const handleLogout = async ({ onShowMessager, refCollections }, onSuccess
             icon: "error",
             msg: catchError(err)
         })
+    } finally {
+        removeToken();
     }
 }
