@@ -116,5 +116,15 @@ export const staticData = {
             value: 'O',
             text: 'O'
         },
+    ],
+    contracts: [
+        {
+            value: 'C',
+            text: 'Kontrak'
+        },
+        {
+            value: 'P',
+            text: 'Tetap'
+        }
     ]
 }

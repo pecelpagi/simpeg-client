@@ -4,7 +4,7 @@ import 'moment/locale/id'
 
 let timeInterval = null;
 
-const getCurrentTime = () => moment().locale('id').format('dddd, DD MMMM YYYY, hh:mm:ss');
+const getCurrentTime = () => moment().locale('id').format('dddd, DD MMMM YYYY, HH:mm:ss');
 
 const CurrentTime = () => {
     const [time, setTime] = useState(getCurrentTime());

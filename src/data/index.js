@@ -66,3 +66,27 @@ export const getEmployeePositions = async (payload) => {
 
   return response;
 }
+
+export const getContracts = async (payload) => {
+  const response = await fetchApi("/api/contracts", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createContract = async (payload) => {
+  const response = await fetchApi("/api/contracts", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateContract = async (payload) => {
+  const response = await fetchApi(`/api/contracts/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteContract = async (payload) => {
+  const response = await fetchApi(`/api/contracts/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
