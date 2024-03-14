@@ -90,3 +90,27 @@ export const deleteContract = async (payload) => {
 
   return response;
 }
+
+export const getSpouses = async (payload) => {
+  const response = await fetchApi("/api/spouses", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createSpouse = async (payload) => {
+  const response = await fetchApi("/api/spouses", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateSpouse = async (payload) => {
+  const response = await fetchApi(`/api/spouses/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteSpouse = async (payload) => {
+  const response = await fetchApi(`/api/spouses/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
