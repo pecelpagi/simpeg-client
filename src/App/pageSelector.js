@@ -24,6 +24,10 @@ const pageSelector = {
     '2.2': {
         title: 'Anak',
         Component: lazy(() => import('../pages/FamilyHistory/Children'))
+    },
+    '2.3': {
+        title: 'Orang Tua',
+        Component: lazy(() => import('../pages/FamilyHistory/Parent'))
     }
 }
 

@@ -141,4 +141,14 @@ export const staticData = {
             text: 'Anak Angkat'
         }
     ],
+    parentStatus: [
+        {
+            value: 'BF',
+            text: 'Ayah Kandung'
+        },
+        {
+            value: 'BM',
+            text: 'Ibu Kandung'
+        },
+    ],
 }
