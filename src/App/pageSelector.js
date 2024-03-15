@@ -28,6 +28,14 @@ const pageSelector = {
     '2.3': {
         title: 'Orang Tua',
         Component: lazy(() => import('../pages/FamilyHistory/Parent'))
+    },
+    '3.1': {
+        title: 'Pendidikan',
+        Component: lazy(() => import('../pages/OtherHistory/Education'))
+    },
+    '3.2': {
+        title: 'Pengalaman Kerja',
+        Component: lazy(() => import('../pages/OtherHistory/WorkExperience'))
     }
 }
 

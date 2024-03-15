@@ -163,3 +163,50 @@ export const deleteParent = async (payload) => {
   return response;
 }
 
+export const getEducations = async (payload) => {
+  const response = await fetchApi("/api/educations", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createEducation = async (payload) => {
+  const response = await fetchApi("/api/educations", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateEducation = async (payload) => {
+  const response = await fetchApi(`/api/educations/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteEducation = async (payload) => {
+  const response = await fetchApi(`/api/educations/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
+
+export const getWorkExperiences = async (payload) => {
+  const response = await fetchApi("/api/work_experiences", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createWorkExperience = async (payload) => {
+  const response = await fetchApi("/api/work_experiences", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateWorkExperience = async (payload) => {
+  const response = await fetchApi(`/api/work_experiences/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteWorkExperience = async (payload) => {
+  const response = await fetchApi(`/api/work_experiences/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
