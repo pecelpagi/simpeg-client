@@ -114,3 +114,27 @@ export const deleteSpouse = async (payload) => {
 
   return response;
 }
+
+export const getChildren = async (payload) => {
+  const response = await fetchApi("/api/children", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createChildren = async (payload) => {
+  const response = await fetchApi("/api/children", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateChildren = async (payload) => {
+  const response = await fetchApi(`/api/children/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteChildren = async (payload) => {
+  const response = await fetchApi(`/api/children/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}

@@ -126,5 +126,19 @@ export const staticData = {
             value: 'P',
             text: 'Tetap'
         }
-    ]
+    ],
+    childStatus: [
+        {
+            value: 'BC',
+            text: 'Anak Kandung'
+        },
+        {
+            value: 'SC',
+            text: 'Anak Tiri'
+        },
+        {
+            value: 'AC',
+            text: 'Anak Angkat'
+        }
+    ],
 }

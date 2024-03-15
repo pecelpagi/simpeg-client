@@ -20,6 +20,10 @@ const pageSelector = {
     '2.1': {
         title: 'Suami / Istri',
         Component: lazy(() => import('../pages/FamilyHistory/MarriedCouple'))
+    },
+    '2.2': {
+        title: 'Anak',
+        Component: lazy(() => import('../pages/FamilyHistory/Children'))
     }
 }
 
