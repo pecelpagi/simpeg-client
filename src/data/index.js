@@ -210,3 +210,33 @@ export const deleteWorkExperience = async (payload) => {
 
   return response;
 }
+
+export const exportEmployee = async () => {
+  const response = await fetchApi('/api/export-employee', {}, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const getExportEmployeeStatus = async () => {
+  const response = await fetchApi(`/api/export-employee-status`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const getNotifications = async (payload) => {
+  const response = await fetchApi(`/api/notifications`, {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const getUnreadNotificationCount = async (payload) => {
+  const response = await fetchApi(`/api/unread_notification_count`, {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const readNotification = async (payload) => {
+  const response = await fetchApi(`/api/read_notification`, {}, METHOD_TYPE.POST);
+
+  return response;
+}

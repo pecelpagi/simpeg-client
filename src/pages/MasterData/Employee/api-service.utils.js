@@ -83,3 +83,20 @@ export const handleDeleteData = async ({ messager, setState, selectedId, onRefre
         setState({ loading: false });
     }
 }
+
+export const handleExportEmployee = async ({ messager, setState }) => {
+    setState({ exporting: true });
+
+    try {
+        await apiService.exportEmployee();
+    } catch (err) {
+        messager.alert({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err),
+            result: () => { }
+        });
+    } finally {
+        setState({ exporting: false });
+    }
+}

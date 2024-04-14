@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import DialogContext from './DialogContext';
+import AppContext from '../../AppContext';
 import * as apiServiceUtility from './api-service.utils';
-import AppContext from '../../../AppContext';
-import PageContext from './PageContext';
 
-class PageContextProvider extends Component {
+class DialogContextProvider extends Component {
     static contextType = AppContext
 
-    constructor(props) {
-        super(props);
-
+    constructor() {
+        super();
         this.state = {
             total: 0,
             pageNumber: 0,
@@ -17,14 +16,22 @@ class PageContextProvider extends Component {
             loading: false,
             search: '',
             selectedData: null,
-            exporting: false,
         }
     }
 
     setState = this.setState.bind(this);
 
     componentDidMount = () => {
-        this.setState({ pageSize: 10, pageNumber: 0 });
+        this.handleDidMount();
+    }
+
+    handleDidMount = () => {
+        const { refCollections } = this.props;
+
+        this.setState({ pageSize: 10, pageNumber: 0 }, () => {
+            refCollections.dialog.current.close();
+            this.handleRefreshData();
+        });
     }
 
     handleFetchData = ({ pageSize, pageNumber }) => {
@@ -57,38 +64,14 @@ class PageContextProvider extends Component {
         this.handleSearchData({ value: '' });
     }
 
-    handleShowFormDialog = (data = null) => {
+    handleShowDialog = () => {
         const { refCollections } = this.props;
-
-        refCollections.formDialog.current.handleShowDialog(data);
-    }
-
-    handleSetSelectedData = (val) => {
-        this.setState({ selectedData: val });
-    }
-
-    handleDeleteData = () => {
-        const { refCollections } = this.props;
-        const { selectedData } = this.state;
-        const { id } = selectedData;
-
-        this.context.messager.confirm({
-            title: "Konfirmasi",
-            msg: `Apakah Anda yakin ingin menghapus "${selectedData.name}" ?`,
-            result: r => {
-              if (r) {
-                apiServiceUtility.handleDeleteData({
-                    messager: this.context.messager, refCollections,
-                    selectedId: id, onRefreshData: this.handleRefreshData,
-                    setState: this.setState,
-                });
-              }
-            }
-          });
-    }
-
-    handleExportEmployee = () => {
-        apiServiceUtility.handleExportEmployee({ messager: this.context.messager, setState: this.setState });
+        this.handleRefreshData();
+        refCollections.dialog.current.open();
+        setTimeout(() => {
+            refCollections.dialog.current.center();
+        }, 100);
+        this.context.onReadNotification();
     }
 
     createContextValue = () => ({
@@ -98,10 +81,6 @@ class PageContextProvider extends Component {
         onFetchData: this.handleFetchData,
         onRefreshData: this.handleRefreshData,
         onClearSearch: this.handleClearSearch,
-        onSetSelectedData: this.handleSetSelectedData,
-        onShowFormDialog: this.handleShowFormDialog,
-        onDeleteData: this.handleDeleteData,
-        onExportEmployee: this.handleExportEmployee,
     });
 
     render() {
@@ -109,13 +88,11 @@ class PageContextProvider extends Component {
         const contextValue = this.createContextValue();
 
         return (
-            <PageContext.Provider
-                value={contextValue}
-            >
+            <DialogContext.Provider value={contextValue}>
                 {children}
-            </PageContext.Provider>
+            </DialogContext.Provider>
         )
     }
 }
 
-export default PageContextProvider
+export default DialogContextProvider

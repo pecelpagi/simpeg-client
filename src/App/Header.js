@@ -3,6 +3,8 @@ import { styled } from '@stitches/react';
 import Logo from '../images/icon-group-100.png';
 import CurrentTime from './CurrentTime';
 import AppContext from '../AppContext';
+import Notification from './Notification';
+import BackgroundProcessInformation from './BackgroundProcessInformation';
 
 const Box = styled('div', {});
 
@@ -11,10 +13,19 @@ const StyledButton = styled('button', {});
 const WelcomeInformation = React.memo(() => {
     return (
         <div style={{
-            flex: 1
+            flex: 1,
         }}>
-            <strong>Halo, Administrator !</strong>
-            <br />
+            <Box
+                css={{
+                    justifyItems: 'flex-end',
+                    gap: '10px',
+                    alignItems: 'center',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto',
+                }}
+            >
+                <strong>Halo, Administrator !</strong>
+            </Box>
             Selamat Datang di Sistem Informasi Manajemen Pegawai.
         </div>
     )
@@ -27,13 +38,14 @@ const Header = () => {
         <Box
             css={{
                 alignItems: 'center',
-                display: 'flex',
+                display: 'grid',
+                gridTemplateColumns: 'auto auto 1fr auto auto',
                 height: '100%',
                 margin: '0 10px',
                 gap: 12
             }}
         >
-            <img style={{ height: 90 }} src={Logo} alt="logo" />
+            <img style={{ height: 90 }} src="/company-logo.png" alt="logo" />
             <Box
                 css={{
                     color: '#FFFFFF',
@@ -48,11 +60,13 @@ const Header = () => {
                     }
                 }}
             >
-                <h1>PT. Example Company Name</h1>
+                <h1>PT. Sudiro Energy Indonesia</h1>
                 <h5>Jl. Jend. Sudirman No. 295</h5>
                 <h5>Jakarta Timur - Indonesia</h5>
                 <h5>Telp. (021) 80871261, 80871262</h5>
             </Box>
+            <BackgroundProcessInformation />
+            <Notification />
             <Box
                 css={{
                     flex: 1,
