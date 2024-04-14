@@ -151,4 +151,26 @@ export const staticData = {
             text: 'Ibu Kandung'
         },
     ],
+    regarding: [
+        {
+            value: 'R',
+            text: 'Teguran'
+        },
+        {
+            value: 'W1',
+            text: 'Peringatan I'
+        },
+        {
+            value: 'W2',
+            text: 'Peringatan II'
+        },
+        {
+            value: 'W3',
+            text: 'Peringatan III'
+        },
+        {
+            value: 'S',
+            text: 'Skorsing'
+        },
+    ],
 }

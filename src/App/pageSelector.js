@@ -36,6 +36,10 @@ const pageSelector = {
     '3.2': {
         title: 'Pengalaman Kerja',
         Component: lazy(() => import('../pages/OtherHistory/WorkExperience'))
+    },
+    '4.1': {
+        title: 'Teguran / Peringatan',
+        Component: lazy(() => import('../pages/WarningLetter'))
     }
 }
 

@@ -240,3 +240,27 @@ export const readNotification = async (payload) => {
 
   return response;
 }
+
+export const getWarningLetters = async (payload) => {
+  const response = await fetchApi("/api/warning_letters", {}, METHOD_TYPE.GET, { queryString: payload });
+
+  return response;
+}
+
+export const createWarningLetter = async (payload) => {
+  const response = await fetchApi("/api/warning_letters", payload, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const updateWarningLetter = async (payload) => {
+  const response = await fetchApi(`/api/warning_letters/${payload.id}`, payload, METHOD_TYPE.PUT);
+
+  return response;
+}
+
+export const deleteWarningLetter = async (payload) => {
+  const response = await fetchApi(`/api/warning_letters/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
