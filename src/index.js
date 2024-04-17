@@ -5,6 +5,7 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
@@ -15,12 +16,13 @@ import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './AppContext/AppContextProvider';
 
 ChartJS.register(
+  ArcElement,
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
