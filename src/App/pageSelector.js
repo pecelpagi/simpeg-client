@@ -40,7 +40,31 @@ const pageSelector = {
     '4.1': {
         title: 'Teguran / Peringatan',
         Component: lazy(() => import('../pages/WarningLetter'))
-    }
+    },
+    '5.1': {
+        title: 'Rekapitulasi Jabatan',
+        Component: lazy(() => import('../pages/Recapitulation/EmployeePositions'))
+    },
+    '5.2': {
+        title: 'Rekapitulasi Pendidikan',
+        Component: lazy(() => import('../pages/Recapitulation/Educations'))
+    },
+    '5.3': {
+        title: 'Rekapitulasi Warga Negara',
+        Component: lazy(() => import('../pages/Recapitulation/EmployeeCitizen'))
+    },
+    '5.4': {
+        title: 'Rekapitulasi Agama',
+        Component: lazy(() => import('../pages/Recapitulation/EmployeeReligion'))
+    },
+    '5.5': {
+        title: 'Rekapitulasi Unit',
+        Component: lazy(() => import('../pages/Recapitulation/Departments'))
+    },
+    '6.1': {
+        title: 'Kontrak Reminder',
+        Component: lazy(() => import('../pages/Report/ContractReminder'))
+    },
 }
 
 export default pageSelector

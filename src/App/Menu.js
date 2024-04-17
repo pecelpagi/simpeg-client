@@ -46,7 +46,7 @@ const menuData = [
         children: [
             { id: '5.1', text: "Jabatan" },
             { id: '5.2', text: "Pendidikan" },
-            { id: '5.3', text: "WN" },
+            { id: '5.3', text: "Warga Negara" },
             { id: '5.4', text: "Agama" },
             { id: '5.5', text: "Unit" },
         ]
@@ -56,17 +56,7 @@ const menuData = [
         text: "Laporan",
         state: "closed",
         children: [
-            { id: '6.1', text: "ST / SP / Skorsing" },
-            { id: '6.2', text: "Kontrak Reminder" },
-        ]
-    },
-    {
-        id: '7', 
-        text: "Pengaturan",
-        state: "closed",
-        children: [
-            { id: '7.1', text: "Instansi / Perusahaan" },
-            { id: '7.2', text: "User" },
+            { id: '6.1', text: "Kontrak Reminder" },
         ]
     },
 ];

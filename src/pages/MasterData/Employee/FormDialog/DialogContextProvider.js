@@ -35,7 +35,6 @@ class DialogContextProvider extends Component {
 
     handleShowDialog = (data = null) => {
         const { refCollections } = this.props;
-        // debugger;
         this.setState({
             selectedId: data ? data.id : null,
             formModel: createFormModel(data),

@@ -12,7 +12,7 @@ export const handleFetchData = async ({ payload, onShowMessager, setState }) => 
         const formattedData = data.map(x => ({
             ...x,
             employeeName: x.employee.name,
-            employeePositionName: x.employeePosition.name,
+            employeePositionName: x.employeePosition,
         }))
 
         setState({

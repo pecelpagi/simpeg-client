@@ -67,6 +67,12 @@ export const getEmployeePositions = async (payload) => {
   return response;
 }
 
+export const getContractsReminder = async () => {
+  const response = await fetchApi("/api/contracts_reminder", {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
 export const getContracts = async (payload) => {
   const response = await fetchApi("/api/contracts", {}, METHOD_TYPE.GET, { queryString: payload });
 
@@ -261,6 +267,36 @@ export const updateWarningLetter = async (payload) => {
 
 export const deleteWarningLetter = async (payload) => {
   const response = await fetchApi(`/api/warning_letters/${payload.id}`, payload, METHOD_TYPE.DELETE);
+
+  return response;
+}
+
+export const getEmployeePositionRecap = async () => {
+  const response = await fetchApi(`/api/employee_positions_recap`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const getEducationsRecap = async () => {
+  const response = await fetchApi(`/api/educations_recap`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const getEmployeeCitizenRecap = async () => {
+  const response = await fetchApi(`/api/employee_citizen_recap`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const getEmployeeReligionRecap = async () => {
+  const response = await fetchApi(`/api/employee_religion_recap`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const getDepartmentsRecap = async () => {
+  const response = await fetchApi(`/api/departments_recap`, {}, METHOD_TYPE.GET);
 
   return response;
 }
