@@ -7,6 +7,7 @@ const ContentDialog = () => {
 
     return (
         <Dialog
+            draggable
             title="SIMPEG v1.0.0"
             style={{ width: '400px' }}
             modal

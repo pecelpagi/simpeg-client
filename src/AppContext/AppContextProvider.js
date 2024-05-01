@@ -7,7 +7,7 @@ import { getToken } from '../utils';
 import * as apiServiceUtility from './api-service.utils';
 import { io } from 'socket.io-client'
 
-const socket = io('http://localhost:4000');
+const socket = io('http://193.203.162.231:4000');
 
 class AppContextProvider extends React.Component {
     state = {
@@ -15,6 +15,7 @@ class AppContextProvider extends React.Component {
         lastClickedMenu: 'DASHBOARD',
         isLoggedIn: !!getToken(),
         isExportingEmployees: false,
+        isExportingWarningReport: false,
         unreadNotificationCount: 0,
     };
 
@@ -26,10 +27,20 @@ class AppContextProvider extends React.Component {
         this.handleFetchUnreadNotificationCount();
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        const { isLoggedIn } = this.state;
+
+        if (prevState.isLoggedIn !== isLoggedIn) {
+            this.handleFetchExportStatus();
+            this.handleFetchUnreadNotificationCount();
+        }
+    }
+
     handleFetchExportStatus = () => {
         const { isLoggedIn } = this.state;
         
         if (isLoggedIn) apiServiceUtility.handleFetchExportEmployeeStatus({ onShowMessager: this.handleShowMessager, setState: this.setState });
+        if (isLoggedIn) apiServiceUtility.handleFetchExportWarningReportStatus({ onShowMessager: this.handleShowMessager, setState: this.setState });
     }
 
     handleFetchUnreadNotificationCount = () => {
@@ -43,7 +54,6 @@ class AppContextProvider extends React.Component {
     }
 
     initSocketConnection = () => {
-        console.log('AAA');
         socket.on("connect", () => {
             console.log(`Connected with ID: ${socket.id}`)
             socket.on("SUBSCRIBE", (message) => {
@@ -90,7 +100,13 @@ class AppContextProvider extends React.Component {
     }
 
     handleShowMessager = (data) => {
-        this.messager.alert(data);
+        if (data.title === 'Error' && data.msg === 'Unauthorized') {
+            this.loginDialog.handleLogout(() => {
+                this.setState({ isLoggedIn: false });
+            });
+        } else {
+            this.messager.alert(data);
+        }
     }
 
     createContextValue = () => ({

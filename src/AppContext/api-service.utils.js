@@ -19,6 +19,24 @@ export const handleFetchExportEmployeeStatus = async ({ onShowMessager, setState
     }
 }
 
+export const handleFetchExportWarningReportStatus = async ({ onShowMessager, setState }) => {
+    try {
+        const res = await apiService.getExportWarningReportStatus();
+
+        const { data } = res;
+
+        setState({
+            isExportingWarningReport: data === 'IS_EXPORTING',
+        });
+    } catch (err) {
+        onShowMessager({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err)
+        })
+    }
+}
+
 export const handleFetchUnreadNotificationCount = async ({ onShowMessager, setState }) => {
     try {
         const res = await apiService.getUnreadNotificationCount();

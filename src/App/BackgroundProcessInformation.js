@@ -3,7 +3,7 @@ import Box from '../components/Box';
 import AppContext from '../AppContext';
 
 const BackgroundProcessInformation = () => {
-    const { isExportingEmployees } = useContext(AppContext);
+    const { isExportingEmployees, isExportingWarningReport } = useContext(AppContext);
 
     return (
         <Box
@@ -32,6 +32,26 @@ const BackgroundProcessInformation = () => {
                 >
                     <img src="/loader.gif" alt="loader" height={32} />
                     <b style={{ marginLeft: 5 }}>Proses ekspor karyawan sedang berjalan.</b>
+                </Box>
+            )}
+            {isExportingWarningReport && (
+                <Box
+                    css={{
+                        marginRight: 15,
+                        color: '#000',
+                        position: 'relative',
+                        width: 'fit-content',
+                        height: 32,
+                        padding: '0 15px 0 5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: '5px',
+                        background: '#FFF',
+                    }}
+                >
+                    <img src="/loader.gif" alt="loader" height={32} />
+                    <b style={{ marginLeft: 5 }}>Proses ekspor laporan sanksi karyawan sedang berjalan.</b>
                 </Box>
             )}
         </Box>

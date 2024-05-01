@@ -20,6 +20,7 @@ class PageContextProvider extends Component {
             loading: false,
             search: '',
             selectedData: null,
+            exporting: false,
         }
     }
 
@@ -89,6 +90,10 @@ class PageContextProvider extends Component {
           });
     }
 
+    handleExportWarningReport = () => {
+        apiServiceUtility.handleExportWarningReport({ messager: this.context.messager, setState: this.setState });
+    }
+
     createContextValue = () => ({
         ...this.props,
         ...this.state,
@@ -99,6 +104,7 @@ class PageContextProvider extends Component {
         onSetSelectedData: this.handleSetSelectedData,
         onShowFormDialog: this.handleShowFormDialog,
         onDeleteData: this.handleDeleteData,
+        onExportWarningReport: this.handleExportWarningReport,
     });
 
     render() {

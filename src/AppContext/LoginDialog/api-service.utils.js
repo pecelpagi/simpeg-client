@@ -21,19 +21,14 @@ export const handleLogin = async ({ onShowMessager, refCollections, formModel, s
     }
 }
 
-export const handleLogout = async ({ onShowMessager, refCollections }, onSuccessCallbackFn) => {
+export const handleLogout = async ({ refCollections }, onSuccessCallbackFn) => {
     try {
         await apiService.logout();
-
-        refCollections.dialog.current.open();
-        onSuccessCallbackFn();
     } catch (err) {
-        onShowMessager({
-            title: "Error",
-            icon: "error",
-            msg: catchError(err)
-        })
+        console.error(err);
     } finally {
         removeToken();
+        refCollections.dialog.current.open();
+        onSuccessCallbackFn();
     }
 }

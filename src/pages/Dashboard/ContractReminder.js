@@ -15,6 +15,7 @@ const ContractReminder = () => {
         >
             {contractReminder.map((x) => (
                 <Box
+                    key={x.id}
                     css={{
                         border: '1px dashed #95b8e7',
                         background: '#e9f2ff',

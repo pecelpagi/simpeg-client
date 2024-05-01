@@ -82,3 +82,20 @@ export const handleDeleteData = async ({ messager, setState, selectedId, onRefre
         setState({ loading: false });
     }
 }
+
+export const handleExportWarningReport = async ({ messager, setState }) => {
+    setState({ exporting: true });
+
+    try {
+        await apiService.exportWarningReport();
+    } catch (err) {
+        messager.alert({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err),
+            result: () => { }
+        });
+    } finally {
+        setState({ exporting: false });
+    }
+}

@@ -1,3 +1,4 @@
+import moment from "moment";
 import * as apiService from "../../data";
 import { catchError } from "../../utils";
 
@@ -5,7 +6,10 @@ const handleFetchContractReminder = async ({ onShowMessager }) => {
     let contractReminder = [];
 
     try {
-        const res = await apiService.getContractsReminder();
+        const startDate = moment().format("YYYY-MM-DD");
+        const endDate = moment().add(30, 'days').format("YYYY-MM-DD");
+
+        const res = await apiService.getContractsReminder({ startDate, endDate });
 
         const { data } = res;
 

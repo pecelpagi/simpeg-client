@@ -67,8 +67,8 @@ export const getEmployeePositions = async (payload) => {
   return response;
 }
 
-export const getContractsReminder = async () => {
-  const response = await fetchApi("/api/contracts_reminder", {}, METHOD_TYPE.GET);
+export const getContractsReminder = async (payload) => {
+  const response = await fetchApi("/api/contracts_reminder", {}, METHOD_TYPE.GET, { queryString: payload });
 
   return response;
 }
@@ -225,6 +225,18 @@ export const exportEmployee = async () => {
 
 export const getExportEmployeeStatus = async () => {
   const response = await fetchApi(`/api/export-employee-status`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
+export const exportWarningReport = async () => {
+  const response = await fetchApi('/api/export-warning-report', {}, METHOD_TYPE.POST);
+
+  return response;
+}
+
+export const getExportWarningReportStatus = async () => {
+  const response = await fetchApi(`/api/export-warning-report-status`, {}, METHOD_TYPE.GET);
 
   return response;
 }

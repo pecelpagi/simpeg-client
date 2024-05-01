@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import * as apiServiceUtility from './api-service.utils';
 import AppContext from '../../AppContext';
 import PageContext from './PageContext';
 
-class PageContextProvider extends Component {
-    static contextType = AppContext
-
+class ClassComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -24,8 +22,18 @@ class PageContextProvider extends Component {
         this.handleFetchData();
     }
 
+    componentDidUpdate = (prevProps) => {
+        const { isLoggedIn } = this.props;
+
+        if (isLoggedIn !== prevProps.isLoggedIn) {
+            this.handleFetchData();
+        }
+    }
+
     handleFetchData = () => {
-        apiServiceUtility.handleFetchData({ onShowMessager: this.context.onShowMessager, setState: this.setState });
+        const { onShowMessager, isLoggedIn } = this.props;
+
+        if (isLoggedIn) apiServiceUtility.handleFetchData({ onShowMessager, setState: this.setState });
     }
 
     createContextValue = () => ({
@@ -46,6 +54,17 @@ class PageContextProvider extends Component {
             </PageContext.Provider>
         )
     }
+}
+
+const PageContextProvider = (props) => {
+    const { children, ...restProps } = props;
+    const appContext = useContext(AppContext);
+
+    return (
+        <ClassComponent {...restProps} {...appContext}>
+            {children}
+        </ClassComponent>
+    )
 }
 
 export default PageContextProvider

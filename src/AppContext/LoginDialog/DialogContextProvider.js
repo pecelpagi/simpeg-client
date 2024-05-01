@@ -36,7 +36,7 @@ class DialogContextProvider extends Component {
     handleLogout = (onSuccessCallbackFn = () => { }) => {
         const { refCollections } = this.props;
 
-        apiServiceUtility.handleLogout({ onShowMessager: this.context.onShowMessager, refCollections }, onSuccessCallbackFn);
+        apiServiceUtility.handleLogout({ refCollections }, onSuccessCallbackFn);
     }
 
     initRules = () => {

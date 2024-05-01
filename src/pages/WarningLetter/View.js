@@ -3,13 +3,16 @@ import { DataGrid, GridColumn, LinkButton, SearchBox } from 'rc-easyui';
 import Box from '../../components/Box';
 import { useContext } from 'react';
 import PageContext from './PageContext';
+import AppContext from '../../AppContext';
 
 const View = () => {
     const {
         search, onSearchData, data, total, pageSize,
         onFetchData, onClearSearch, loading, onSetSelectedData,
-        onShowFormDialog, selectedData, onDeleteData
+        onShowFormDialog, selectedData, onDeleteData, exporting,
+        onExportWarningReport,
     } = useContext(PageContext);
+    const { isExportingWarningReport } = useContext(AppContext);
 
     return (
         <DataGrid
@@ -30,7 +33,13 @@ const View = () => {
                         <LinkButton iconCls="icon-edit" plain disabled={!selectedData} onClick={() => { onShowFormDialog(selectedData); }}>Ubah</LinkButton>
                         <LinkButton iconCls="icon-cancel" plain disabled={!selectedData} onClick={() => { onDeleteData() }}>Hapus</LinkButton>
                     </Box>
-                    <Box>
+                    <Box
+                        css={{
+                            display: 'flex',
+                            gap: 8,
+                        }}
+                    >
+                        <LinkButton iconCls="icon-print" plain disabled={exporting ? exporting : isExportingWarningReport} onClick={() => { onExportWarningReport() }}>Export</LinkButton>
                         <SearchBox
                             style={{ width: 300 }}
                             placeholder="Cari ..."
