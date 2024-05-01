@@ -11,7 +11,7 @@ const getQueryString = (params) => {
 const fetchApi = async (endPoint, payload = {}, method = METHOD_TYPE.GET, options = {
     queryString: undefined,
 }) => {
-    let apiUrl = endPoint;
+    let apiUrl = process.env.REACT_APP_API_BASE_URL + endPoint;
 
     switch (method) {
         case METHOD_TYPE.GET:
