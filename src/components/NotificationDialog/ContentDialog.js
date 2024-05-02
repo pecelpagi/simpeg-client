@@ -52,7 +52,7 @@ const ContentDialog = () => {
             >
                 <GridColumn field="createdAt" width={150} title="Tanggal"></GridColumn>
                 <GridColumn field="attachment" title="Informasi" render={({ value, row }) => {
-                    return (<span>Hasil <b>{row.notificationType === 'EE' ? 'Export Data Karyawan' : 'Export Laporan Skorsing'}</b> sudah dapat di unduh: <a href={`http://193.203.162.231:8080/export/${value}`}>{value}</a></span>);
+                    return (<span>Hasil <b>{row.notificationType === 'EE' ? 'Export Data Karyawan' : 'Export Laporan Skorsing'}</b> sudah dapat di unduh: <a href={`${process.env.REACT_APP_EXPORT_FILE_SERVER}/export/${value}`}>{value}</a></span>);
                 }}></GridColumn>
             </DataGrid>
         </Dialog>

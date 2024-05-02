@@ -7,7 +7,7 @@ import { getToken } from '../utils';
 import * as apiServiceUtility from './api-service.utils';
 import { io } from 'socket.io-client'
 
-const socket = io('http://193.203.162.231:4000');
+const socket = io('https://glh.galuhrmdh.com:4000');
 
 class AppContextProvider extends React.Component {
     state = {
