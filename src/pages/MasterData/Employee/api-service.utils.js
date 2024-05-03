@@ -1,4 +1,5 @@
 import * as apiService from "../../../data";
+import * as uploaderService from "../../../uploader.utils";
 import { catchError } from "../../../utils";
 
 export const handleFetchData = async ({ payload, onShowMessager, setState }) => {
@@ -98,5 +99,28 @@ export const handleExportEmployee = async ({ messager, setState }) => {
         });
     } finally {
         setState({ exporting: false });
+    }
+}
+
+export const handleUploadFile = async ({ files, messager, onChange, setState }) => {
+    if (files.length === 0) return;
+
+    setState({ isUploading: true });
+
+    try {
+
+        let file = files[0];
+
+        const response = await uploaderService.uploadImage(file);
+        onChange('profilePicture', response.data.filename);
+    } catch (err) {
+        messager.alert({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err),
+            result: () => { }
+        });
+    } finally {
+        setState({ isUploading: false });
     }
 }

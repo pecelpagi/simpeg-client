@@ -17,8 +17,11 @@ class DialogContextProvider extends Component {
             selectedDepartment: null,
             selectedEmployeePosition: null,
             isSaving: false,
+            isUploading: false,
         }
     }
+
+    setState = this.setState.bind(this);
 
     componentDidMount = () => {
         this.initRules();
@@ -49,6 +52,7 @@ class DialogContextProvider extends Component {
     }
 
     handleChange = (name, value) => {
+        const { refCollections } = this.props;
         const { formModel } = this.state
 
         let newValue = value;
@@ -71,7 +75,11 @@ class DialogContextProvider extends Component {
             [name]: newValue,
         }
 
-        this.setState({ formModel: newFormModel, ...newState });
+        this.setState({ formModel: newFormModel, ...newState }, () => {
+            if (name === 'profilePicture') {
+                refCollections.fileUpload.current.value = null;
+            }
+        });
     }
 
     handleSubmit = () => {
@@ -117,13 +125,18 @@ class DialogContextProvider extends Component {
         refCollections.employeePositionDialog.current.handleShowDialog();
     }
 
+    handleUploadFile = (files) => {
+        apiServiceUtility.handleUploadFile({ messager: this.context.messager, files, onChange: this.handleChange, setState: this.setState });
+    }
+
     createContextValue = () => ({
         ...this.props,
         ...this.state,
         onChange: this.handleChange,
         onSubmit: this.handleSubmit,
         onShowDepartmentDialog: this.handleShowDepartmentDialog,
-        onShowEmployeePositionDialog: this.handleShowEmployeePositionDialog
+        onShowEmployeePositionDialog: this.handleShowEmployeePositionDialog,
+        onUploadFile: this.handleUploadFile,
     });
 
     render() {

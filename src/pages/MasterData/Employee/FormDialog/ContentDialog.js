@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import {
     Dialog, Form, FormField, TextBox, LinkButton,
-    FileButton, ComboBox, DateBox
+    ComboBox, DateBox
 } from 'rc-easyui';
 import DialogContext from './DialogContext';
 import Box from '../../../../components/Box';
@@ -13,7 +13,7 @@ const ContentDialog = () => {
     const {
         selectedEmployeePosition, selectedDepartment, formModel, rules, refCollections, onSubmit,
         onChange, selectedId, onShowDepartmentDialog, onShowEmployeePositionDialog,
-        isSaving,
+        isSaving, onUploadFile, isUploading
     } = useContext(DialogContext);
 
     return (
@@ -38,7 +38,7 @@ const ContentDialog = () => {
                     <Box
                         css={{
                             display: 'grid',
-                            gridTemplateColumns: '1fr 1fr 1fr auto'
+                            gridTemplateColumns: '1fr 1fr 1fr 1fr'
                         }}
                     >
                         <div style={{ padding: 15 }}>
@@ -66,11 +66,11 @@ const ContentDialog = () => {
                                     >
                                         <TextBox style={{ opacity: 0 }} value={formModel.departmentId} disabled></TextBox>
                                         <Box css={{
-                                                position: 'absolute', top: 0, left: 0, height: 30,
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                fontWeight: 'bold',
-                                            }}>{selectedDepartment ? selectedDepartment.name : '-'}</Box>
+                                            position: 'absolute', top: 0, left: 0, height: 30,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            fontWeight: 'bold',
+                                        }}>{selectedDepartment ? selectedDepartment.name : '-'}</Box>
                                     </Box>
                                     <LinkButton onClick={onShowDepartmentDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
                                 </Box>
@@ -112,11 +112,11 @@ const ContentDialog = () => {
                                     >
                                         <TextBox style={{ opacity: 0 }} value={formModel.employeePositionId} disabled></TextBox>
                                         <Box css={{
-                                                position: 'absolute', top: 0, left: 0, height: 30,
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                fontWeight: 'bold',
-                                            }}>{selectedEmployeePosition ? selectedEmployeePosition.name : '-'}</Box>
+                                            position: 'absolute', top: 0, left: 0, height: 30,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            fontWeight: 'bold',
+                                        }}>{selectedEmployeePosition ? selectedEmployeePosition.name : '-'}</Box>
                                     </Box>
                                     <LinkButton onClick={onShowEmployeePositionDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
                                 </Box>
@@ -149,14 +149,13 @@ const ContentDialog = () => {
                             </FormField>
                             <Box
                                 css={{
-                                    alignItems: 'center',
                                     marginTop: 15,
-                                    display: 'flex',
-                                    flexDirection: 'row',
+                                    display: 'grid',
                                     gap: 10,
+                                    gridTemplateColumns: '1fr 180px'
                                 }}
                             >
-                                <img style={{ height: 130 }} src="/photo_placeholder.jpg" alt="Profile" />
+                                <img style={{ width: '100%' }} src={formModel.profilePicture ? `/api-file-uploader/uploads/${formModel.profilePicture}` : "/photo_placeholder.jpg"} alt="Profile" />
                                 <Box
                                     css={{
                                         flex: '1 1 auto',
@@ -177,12 +176,15 @@ const ContentDialog = () => {
                                             color: '#0E2D5F',
                                             fontSize: 12,
                                             '& .l-btn-icon': {
+                                                top: 0,
                                                 position: 'relative',
                                                 marginTop: 0,
                                             }
                                         }}
                                     ><i className='l-btn-icon icon-tip' /><span>Ukuran file maksimal <b>2MB</b></span></Box>
-                                    <FileButton style={{ width: '100%' }} onSelect={() => { }} disabled={isSaving}>Upload Foto</FileButton>
+                                    <LinkButton style={{ width: '100%' }} onClick={() => { refCollections.fileUpload.current.click(); }} disabled={isUploading ? true : isSaving}>{isUploading ? 'Uploading...' : 'Upload Foto'}</LinkButton>
+                                    {formModel.profilePicture && <LinkButton iconCls="icon-cancel" style={{ width: '100%' }} onClick={() => { onChange("profilePicture", ""); }}>Hapus Foto</LinkButton>}
+                                    <input style={{ opacity: 0 }} accept="image/png,image/jpeg,image/jpg,image/webp" type="file" ref={refCollections.fileUpload} onChange={(e) => onUploadFile(e.target.files)} />
                                 </Box>
                             </Box>
                         </div>

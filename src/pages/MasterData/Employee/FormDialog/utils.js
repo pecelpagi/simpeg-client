@@ -114,12 +114,14 @@ export const useRefCollections = () => {
   const dialog = useRef(null);
   const departmentDialog = useRef(null);
   const employeePositionDialog = useRef(null);
+  const fileUpload = useRef(null);
 
   return {
     dialog,
     form,
     departmentDialog,
     employeePositionDialog,
+    fileUpload
   };
 };
 
