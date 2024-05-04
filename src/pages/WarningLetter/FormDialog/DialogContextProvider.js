@@ -16,8 +16,11 @@ class DialogContextProvider extends Component {
             rules: {},
             selectedEmployee: null,
             isSaving: false,
+            isUploading: false,
         }
     }
+
+    setState = this.setState.bind(this);
 
     componentDidMount = () => {
         this.initRules();
@@ -105,12 +108,17 @@ class DialogContextProvider extends Component {
         refCollections.employeeDialog.current.handleShowDialog();
     }
 
+    handleUploadFile = (files) => {
+        apiServiceUtility.handleUploadFile({ messager: this.context.messager, files, onChange: this.handleChange, setState: this.setState });
+    }
+
     createContextValue = () => ({
         ...this.props,
         ...this.state,
         onChange: this.handleChange,
         onSubmit: this.handleSubmit,
         onShowEmployeeDialog: this.handleShowEmployeeDialog,
+        onUploadFile: this.handleUploadFile,
     });
 
     render() {

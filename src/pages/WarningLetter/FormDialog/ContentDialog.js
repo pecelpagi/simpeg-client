@@ -12,7 +12,7 @@ const ContentDialog = () => {
     const {
         selectedEmployee, formModel, rules, refCollections, onSubmit,
         onChange, selectedId, onShowEmployeeDialog,
-        isSaving,
+        isSaving, isUploading, onUploadFile
     } = useContext(DialogContext);
 
     return (
@@ -84,6 +84,24 @@ const ContentDialog = () => {
                             </FormField>
                             <FormField name="suspensionPeriod" label="Masa Berlaku Skorsing :" style={{ marginBottom: 10 }}>
                                 <DateBox value={formModel.suspensionPeriod} format="yyyy-MM-dd" disabled={formModel.regarding !== 'S' ? true : isSaving}></DateBox>
+                            </FormField>
+                            <FormField name="attachment" label="Dokumen :" style={{ marginBottom: 10 }}>
+                                <Box
+                                    css={{
+                                        position: 'relative',
+                                        display: 'grid',
+                                        alignItems: 'center',
+                                        gridTemplateColumns: '1fr auto auto',
+                                        gap: 8
+                                    }}
+                                >
+                                    <Box css={{
+                                        fontWeight: 'bold',
+                                    }}>{formModel.attachment ? <a href={`/api-file-uploader/uploads/${formModel.attachment}`} target="_blank" rel="noreferrer">Klik untuk preview</a> : <span>-</span>}</Box>
+                                    <LinkButton onClick={() => { refCollections.fileUpload.current.click(); }} disabled={isUploading ? true : isSaving}>{isUploading ? 'Uploading...' : 'Upload .pdf'}</LinkButton>
+                                    {formModel.attachment && <LinkButton onClick={() => { onChange("attachment", ""); }} iconCls="icon-cancel" disabled={isSaving}>Hapus</LinkButton>}
+                                    <input style={{ opacity: 1, position: 'absolute', top: 0, left: 0, zIndex: -1 }} accept="application/pdf" type="file" ref={refCollections.fileUpload} onChange={(e) => onUploadFile(e.target.files)} />
+                                </Box>
                             </FormField>
                         </div>
                     </Box>

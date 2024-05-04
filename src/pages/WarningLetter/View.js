@@ -71,6 +71,9 @@ const View = () => {
             <GridColumn field="regardingText" title="Perihal"></GridColumn>
             <GridColumn field="violationDate" title="Tanggal Pelanggaran"></GridColumn>
             <GridColumn field="suspensionPeriod" title="Masa Berlaku Skorsing"></GridColumn>
+            <GridColumn field="attachment" title="Dokumen" render={({ value }) => {
+                return value ? <a href={`/api-file-uploader/uploads/${value}`} target="_blank" rel="noreferrer">Preview Dokumen</a> : <span>-</span>;
+            }}></GridColumn>
         </DataGrid>
     )
 }

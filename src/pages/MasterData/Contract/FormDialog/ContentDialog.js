@@ -82,7 +82,7 @@ const ContentDialog = () => {
                                     fontWeight: 'bold',
                                 }}>{formModel.attachment ? <a href={`/api-file-uploader/uploads/${formModel.attachment}`} target="_blank" rel="noreferrer">Klik untuk preview dokumen</a> : <span>-</span>}</Box>
                                 <LinkButton onClick={() => { refCollections.fileUpload.current.click(); }} disabled={isUploading ? true : isSaving}>{isUploading ? 'Uploading...' : 'Upload .pdf'}</LinkButton>
-                                <LinkButton onClick={() => { onChange("attachment", ""); }} iconCls="icon-cancel" disabled={isSaving}>Hapus</LinkButton>
+                                {formModel.attachment && <LinkButton onClick={() => { onChange("attachment", ""); }} iconCls="icon-cancel" disabled={isSaving}>Hapus</LinkButton>}
                                 <input style={{ opacity: 1, position: 'absolute', top: 0, left: 0, zIndex: -1 }} accept="application/pdf" type="file" ref={refCollections.fileUpload} onChange={(e) => onUploadFile(e.target.files)} />
                             </Box>
                         </FormField>

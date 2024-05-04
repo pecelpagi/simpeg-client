@@ -63,6 +63,9 @@ const View = () => {
             <GridColumn field="name" title="Sekolah / Perguruan Tinggi"></GridColumn>
             <GridColumn field="location" title="Lokasi"></GridColumn>
             <GridColumn field="certificateNumber" title="Ijazah"></GridColumn>
+            <GridColumn field="attachment" title="Dokumen Ijazah" render={({ value }) => {
+                return value ? <a href={`/api-file-uploader/uploads/${value}`} target="_blank" rel="noreferrer">Preview Dokumen</a> : <span>-</span>;
+            }}></GridColumn>
         </DataGrid>
     )
 }
