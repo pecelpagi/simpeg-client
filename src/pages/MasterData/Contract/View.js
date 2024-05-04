@@ -62,6 +62,9 @@ const View = () => {
             <GridColumn field="startDate" title="Tgl Mulai"></GridColumn>
             <GridColumn field="contractLengthMonthText" title="Lama Kontrak"></GridColumn>
             <GridColumn field="endDate" title="Tgl Selesai"></GridColumn>
+            <GridColumn field="attachment" title="Dokumen Kontrak" render={({ value }) => {
+                return value ? <a href={`/api-file-uploader/uploads/${value}`} target="_blank" rel="noreferrer">Preview Dokumen</a> : <span>-</span>;
+            }}></GridColumn>
         </DataGrid>
     )
 }

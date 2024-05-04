@@ -1,5 +1,6 @@
 import moment from "moment";
 import * as apiService from "../../../data";
+import * as uploaderService from "../../../uploader.utils";
 import { catchError } from "../../../utils";
 
 export const handleFetchData = async ({ payload, onShowMessager, setState }) => {
@@ -83,5 +84,28 @@ export const handleDeleteData = async ({ messager, setState, selectedId, onRefre
         });
     } finally {
         setState({ loading: false });
+    }
+}
+
+export const handleUploadFile = async ({ files, messager, onChange, setState }) => {
+    if (files.length === 0) return;
+
+    setState({ isUploading: true });
+
+    try {
+
+        let file = files[0];
+
+        const response = await uploaderService.uploadPdf(file);
+        onChange('attachment', response.data.filename);
+    } catch (err) {
+        messager.alert({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err),
+            result: () => { }
+        });
+    } finally {
+        setState({ isUploading: false });
     }
 }

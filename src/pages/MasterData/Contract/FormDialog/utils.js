@@ -19,6 +19,9 @@ const createFormData = (data = null) => {
       "value": data ? data.contractLengthMonth : null,
       "rule": "required"
     },
+    "attachment": {
+      "value": data ? data.attachment : null,
+    },
   }
 }
 
@@ -54,10 +57,12 @@ export const useRefCollections = () => {
   const form = useRef(null);
   const dialog = useRef(null);
   const employeeDialog = useRef(null);
+  const fileUpload = useRef(null);
 
   return {
     dialog,
     form,
+    fileUpload,
     employeeDialog,
   };
 };
