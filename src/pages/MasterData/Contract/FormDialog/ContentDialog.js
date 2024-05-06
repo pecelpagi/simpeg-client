@@ -7,6 +7,7 @@ import DialogContext from './DialogContext';
 import Box from '../../../../components/Box';
 import EmployeeDialog from '../../../../components/EmployeeDialog';
 import { staticData } from '../../../../utils';
+import PageContext from '../PageContext';
 
 const ContentDialog = () => {
     const {
@@ -14,6 +15,9 @@ const ContentDialog = () => {
         onChange, selectedId, onShowEmployeeDialog,
         isSaving, onUploadFile, isUploading,
     } = useContext(DialogContext);
+    const { employeeId } = useContext(PageContext);
+
+    console.log('DEBUG-EMPLOYEE-ID: ', employeeId);
 
     return (
         <React.Fragment>
@@ -35,30 +39,32 @@ const ContentDialog = () => {
                     onChange={onChange}
                 >
                     <div style={{ padding: 15 }}>
-                        <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
-                            <Box
-                                css={{
-                                    display: 'grid',
-                                    gridTemplateColumns: '1fr auto',
-                                    gap: 8
-                                }}
-                            >
+                        {!employeeId && (
+                            <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
                                 <Box
                                     css={{
-                                        position: 'relative',
+                                        display: 'grid',
+                                        gridTemplateColumns: '1fr auto',
+                                        gap: 8
                                     }}
                                 >
-                                    <TextBox style={{ opacity: 0 }} value={formModel.employeeId} disabled></TextBox>
-                                    <Box css={{
-                                        position: 'absolute', top: 0, left: 0, height: 30,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        fontWeight: 'bold',
-                                    }}>{selectedEmployee ? selectedEmployee.name : '-'}</Box>
+                                    <Box
+                                        css={{
+                                            position: 'relative',
+                                        }}
+                                    >
+                                        <TextBox style={{ opacity: 0 }} value={formModel.employeeId} disabled></TextBox>
+                                        <Box css={{
+                                            position: 'absolute', top: 0, left: 0, height: 30,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            fontWeight: 'bold',
+                                        }}>{selectedEmployee ? selectedEmployee.name : '-'}</Box>
+                                    </Box>
+                                    <LinkButton onClick={onShowEmployeeDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
                                 </Box>
-                                <LinkButton onClick={onShowEmployeeDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
-                            </Box>
-                        </FormField>
+                            </FormField>
+                        )}
                         <FormField name="contractStatus" label="Status :" style={{ marginBottom: 10 }}>
                             <ComboBox value={formModel.contractStatus} data={staticData.contracts} disabled={isSaving}></ComboBox>
                         </FormField>

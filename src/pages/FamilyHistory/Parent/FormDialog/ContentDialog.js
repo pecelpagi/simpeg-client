@@ -7,13 +7,17 @@ import DialogContext from './DialogContext';
 import Box from '../../../../components/Box';
 import EmployeeDialog from '../../../../components/EmployeeDialog';
 import { staticData } from '../../../../utils';
+import PageContext from '../PageContext';
 
 const ContentDialog = () => {
     const {
         selectedEmployee, formModel, rules, refCollections, onSubmit,
         onChange, selectedId, onShowEmployeeDialog,
-        isSaving,
+        isSaving
     } = useContext(DialogContext);
+    const {
+        employeeId,
+    } = useContext(PageContext);
 
     return (
         <React.Fragment>
@@ -41,7 +45,7 @@ const ContentDialog = () => {
                         }}
                     >
                         <div style={{ padding: 15 }}>
-                            <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
+                            {!employeeId && <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
                                 <Box
                                     css={{
                                         display: 'grid',
@@ -64,7 +68,7 @@ const ContentDialog = () => {
                                     </Box>
                                     <LinkButton onClick={onShowEmployeeDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
                                 </Box>
-                            </FormField>
+                            </FormField>}
                             <FormField name="idNumber" label="NIK :" style={{ marginBottom: 10 }}>
                                 <TextBox value={formModel.idNumber} disabled={isSaving}></TextBox>
                             </FormField>

@@ -58,7 +58,7 @@ const View = () => {
             }}
         >
             <GridColumn field="employeeName" title="Karyawan"></GridColumn>
-            <GridColumn field="name" title="Nama Anak"></GridColumn>
+            <GridColumn field="name" title="Nama Orang Tua"></GridColumn>
             <GridColumn field="idNumber" title="NIK"></GridColumn>
             <GridColumn field="lastEducation" title="Pendidikan Akhir"></GridColumn>
             <GridColumn field="occupation" title="Pekerjaan"></GridColumn>

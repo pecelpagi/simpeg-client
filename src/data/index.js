@@ -43,6 +43,12 @@ export const getEmployees = async (payload) => {
   return response;
 }
 
+export const getEmployeeDetail = async (employeeId) => {
+  const response = await fetchApi(`/api/employees/${employeeId}`, {}, METHOD_TYPE.GET);
+
+  return response;
+}
+
 export const createEmployee = async (payload) => {
   const response = await fetchApi("/api/employees", payload, METHOD_TYPE.POST);
 

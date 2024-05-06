@@ -1,6 +1,9 @@
 import * as apiService from "../../../data";
 import * as uploaderService from "../../../uploader.utils";
 import { catchError } from "../../../utils";
+import { getParentStatusObject } from "./utils";
+
+const parentStatusObject = getParentStatusObject();
 
 export const handleFetchData = async ({ payload, onShowMessager, setState }) => {
     setState({ loading: true });
@@ -22,6 +25,41 @@ export const handleFetchData = async ({ payload, onShowMessager, setState }) => 
             data: formattedData,
             pageSize: payload.size,
             pageNumber: payload.page,
+        });
+    } catch (err) {
+        onShowMessager({
+            title: "Error",
+            icon: "error",
+            msg: catchError(err)
+        })
+    } finally {
+        setState({
+            loading: false,
+        })
+    }
+}
+
+export const handleFetchDetail = async ({ employeeId, onShowMessager, setState }) => {
+    setState({ loading: true });
+
+    try {
+        const res = await apiService.getEmployeeDetail(employeeId);
+
+        const { data } = res;
+
+        const formattedParents = data.parents.map(x => ({
+            ...x,
+            birthdateAndPlace: `${x.birthplace}, ${x.birthdate}`,
+            status: parentStatusObject[x.parentStatus]
+        }));
+
+        const newData = {
+            ...data,
+            parents: formattedParents
+        }
+
+        setState({
+            employeeDetail: newData
         });
     } catch (err) {
         onShowMessager({

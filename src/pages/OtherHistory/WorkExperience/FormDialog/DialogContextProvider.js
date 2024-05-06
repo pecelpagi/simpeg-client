@@ -15,7 +15,6 @@ class DialogContextProvider extends Component {
             formModel: createFormModel(),
             rules: {},
             selectedEmployee: null,
-            selectedEmployeePosition: null,
             isSaving: false,
         }
     }
@@ -39,7 +38,6 @@ class DialogContextProvider extends Component {
             selectedId: data ? data.id : null,
             formModel: createFormModel(data),
             selectedEmployee: data && data.employee ? data.employee : null,
-            selectedEmployeePosition: data && data.employeePosition ? data.employeePosition : null
         }, () => {
             refCollections.dialog.current.open();
             setTimeout(() => {
@@ -58,11 +56,6 @@ class DialogContextProvider extends Component {
             newValue = value.id;
             newState = {
                 selectedEmployee: value,
-            }
-        } else if (name === 'employeePositionId' && value && typeof value === 'object') {
-            newValue = value.id;
-            newState = {
-                selectedEmployeePosition: value,
             }
         }
 

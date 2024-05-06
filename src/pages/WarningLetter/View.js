@@ -10,7 +10,7 @@ const View = () => {
         search, onSearchData, data, total, pageSize,
         onFetchData, onClearSearch, loading, onSetSelectedData,
         onShowFormDialog, selectedData, onDeleteData, exporting,
-        onExportWarningReport,
+        onExportWarningReport, employeeId
     } = useContext(PageContext);
     const { isExportingWarningReport } = useContext(AppContext);
 
@@ -39,7 +39,7 @@ const View = () => {
                             gap: 8,
                         }}
                     >
-                        <LinkButton iconCls="icon-print" plain disabled={exporting ? exporting : isExportingWarningReport} onClick={() => { onExportWarningReport() }}>Export</LinkButton>
+                        {!employeeId && <LinkButton iconCls="icon-print" plain disabled={exporting ? exporting : isExportingWarningReport} onClick={() => { onExportWarningReport() }}>Export</LinkButton>}
                         <SearchBox
                             style={{ width: 300 }}
                             placeholder="Cari ..."

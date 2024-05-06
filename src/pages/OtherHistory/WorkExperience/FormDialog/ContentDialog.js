@@ -7,13 +7,15 @@ import DialogContext from './DialogContext';
 import Box from '../../../../components/Box';
 import EmployeeDialog from '../../../../components/EmployeeDialog';
 import EmployeePositionDialog from '../../../../components/EmployeePositionDialog';
+import PageContext from '../PageContext';
 
 const ContentDialog = () => {
     const {
         selectedEmployee, formModel, rules, refCollections, onSubmit,
         onChange, selectedId, onShowEmployeeDialog,
-        isSaving, selectedEmployeePosition, onShowEmployeePositionDialog,
+        isSaving,
     } = useContext(DialogContext);
+    const { employeeId } = useContext(PageContext);
 
     return (
         <React.Fragment>
@@ -41,30 +43,32 @@ const ContentDialog = () => {
                         }}
                     >
                         <div style={{ padding: 15 }}>
-                            <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
-                                <Box
-                                    css={{
-                                        display: 'grid',
-                                        gridTemplateColumns: '1fr auto',
-                                        gap: 8
-                                    }}
-                                >
+                            {!employeeId && (
+                                <FormField name="employeeId" label="Karyawan :" style={{ marginBottom: 10 }}>
                                     <Box
                                         css={{
-                                            position: 'relative',
+                                            display: 'grid',
+                                            gridTemplateColumns: '1fr auto',
+                                            gap: 8
                                         }}
                                     >
-                                        <TextBox style={{ opacity: 0 }} value={formModel.employeeId} disabled></TextBox>
-                                        <Box css={{
-                                            position: 'absolute', top: 0, left: 0, height: 30,
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            fontWeight: 'bold',
-                                        }}>{selectedEmployee ? selectedEmployee.name : '-'}</Box>
+                                        <Box
+                                            css={{
+                                                position: 'relative',
+                                            }}
+                                        >
+                                            <TextBox style={{ opacity: 0 }} value={formModel.employeeId} disabled></TextBox>
+                                            <Box css={{
+                                                position: 'absolute', top: 0, left: 0, height: 30,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                fontWeight: 'bold',
+                                            }}>{selectedEmployee ? selectedEmployee.name : '-'}</Box>
+                                        </Box>
+                                        <LinkButton onClick={onShowEmployeeDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
                                     </Box>
-                                    <LinkButton onClick={onShowEmployeeDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
-                                </Box>
-                            </FormField>
+                                </FormField>
+                            )}
                             <FormField name="companyName" label="Nama Perusahaan :" style={{ marginBottom: 10 }}>
                                 <TextBox value={formModel.companyName} disabled={isSaving}></TextBox>
                             </FormField>
@@ -79,29 +83,8 @@ const ContentDialog = () => {
                             <FormField name="department" label="Department :" style={{ marginBottom: 10 }}>
                                 <TextBox value={formModel.department} disabled={isSaving}></TextBox>
                             </FormField>
-                            <FormField name="employeePositionId" label="Jabatan :" style={{ marginBottom: 10 }}>
-                                <Box
-                                    css={{
-                                        display: 'grid',
-                                        gridTemplateColumns: '1fr auto',
-                                        gap: 8
-                                    }}
-                                >
-                                    <Box
-                                        css={{
-                                            position: 'relative',
-                                        }}
-                                    >
-                                        <TextBox style={{ opacity: 0 }} value={formModel.employeePositionId} disabled></TextBox>
-                                        <Box css={{
-                                                position: 'absolute', top: 0, left: 0, height: 30,
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                fontWeight: 'bold',
-                                            }}>{selectedEmployeePosition ? selectedEmployeePosition.name : '-'}</Box>
-                                    </Box>
-                                    <LinkButton onClick={onShowEmployeePositionDialog} iconCls="icon-search" disabled={isSaving}>Cari</LinkButton>
-                                </Box>
+                            <FormField name="employeePosition" label="Jabatan :" style={{ marginBottom: 10 }}>
+                                <TextBox value={formModel.employeePosition} disabled={isSaving}></TextBox>
                             </FormField>
                             <FormField name="initialPeriod" label="Awal Bekerja :" style={{ marginBottom: 10 }}>
                                 <DateBox value={formModel.initialPeriod} format="yyyy-MM-dd" disabled={isSaving}></DateBox>

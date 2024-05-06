@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import DialogContext from './DialogContext';
 import * as apiServiceUtility from '../api-service.utils';
 import { createFormModel, createFormRules } from './utils';
 import AppContext from '../../../../AppContext';
 import moment from 'moment';
+import PageContext from '../PageContext';
 
-class DialogContextProvider extends Component {
+class ClassComponent extends Component {
     static contextType = AppContext
 
     constructor() {
@@ -81,9 +82,11 @@ class DialogContextProvider extends Component {
     }
 
     processingSubmitData = async ({ formModel, selectedId, refCollections, onRefreshData }) => {
+        const { employeeId } = this.props;
         const reformatFormModel = {
             ...formModel,
             birthdate: moment(formModel.birthdate).format('YYYY-MM-DD'),
+            ...employeeId ? { employeeId } : {},
         }
 
         this.setState({ isSaving: true });
@@ -122,5 +125,16 @@ class DialogContextProvider extends Component {
         )
     }
 }
+
+const DialogContextProvider = React.forwardRef((props, ref) => {
+    const { children, ...restProps } = props;
+    const { employeeId } = useContext(PageContext);
+
+    return (
+        <ClassComponent ref={ref} {...restProps} {...{ employeeId }}>
+            {children}
+        </ClassComponent>
+    )
+});
 
 export default DialogContextProvider

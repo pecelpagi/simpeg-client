@@ -30,12 +30,14 @@ class PageContextProvider extends Component {
     }
 
     handleFetchData = ({ pageSize, pageNumber }) => {
+        const { employeeId } = this.props;
         const { search } = this.state;
 
         const payload = {
             size: pageSize,
             page: pageNumber - 1,
             search,
+            ...employeeId ? { employeeId } : {}
         };
 
         apiServiceUtility.handleFetchData({ payload, onShowMessager: this.context.onShowMessager, setState: this.setState, parentStatusObject });

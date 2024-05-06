@@ -9,7 +9,7 @@ const View = () => {
     const {
         search, onSearchData, data, total, pageSize,
         onFetchData, onClearSearch, loading, onSetSelectedData,
-        onShowFormDialog, selectedData, onDeleteData, onExportEmployee, exporting,
+        onShowFormDialog, selectedData, onDeleteData, onExportEmployee, exporting, onShowDetailDialog,
     } = useContext(PageContext);
     const { isExportingEmployees } = useContext(AppContext);
 
@@ -31,6 +31,7 @@ const View = () => {
                         <LinkButton iconCls="icon-add" plain onClick={() => { onShowFormDialog(); }}>Tambah</LinkButton>
                         <LinkButton iconCls="icon-edit" plain disabled={!selectedData} onClick={() => { onShowFormDialog(selectedData); }}>Ubah</LinkButton>
                         <LinkButton iconCls="icon-cancel" plain disabled={!selectedData} onClick={() => { onDeleteData() }}>Hapus</LinkButton>
+                        <LinkButton iconCls="icon-man" plain disabled={!selectedData} onClick={() => { onShowDetailDialog(selectedData); }}>Preview</LinkButton>
                     </Box>
                     <Box
                         css={{

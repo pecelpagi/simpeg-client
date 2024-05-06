@@ -23,8 +23,8 @@ const createFormData = (data = null) => {
       "value": data ? data.department : null,
       "rule": "required"
     },
-    "employeePositionId": {
-      "value": data && data.employeePosition ? data.employeePosition.id : null,
+    "employeePosition": {
+      "value": data && data.employeePosition ? data.employeePosition : null,
       "rule": "required"
     },
     "initialPeriod": {

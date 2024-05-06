@@ -63,6 +63,12 @@ class PageContextProvider extends Component {
         refCollections.formDialog.current.handleShowDialog(data);
     }
 
+    handleShowDetailDialog = (data = null) => {
+        const { refCollections } = this.props;
+
+        refCollections.detailDialog.current.handleShowDialog(data);
+    }
+
     handleSetSelectedData = (val) => {
         this.setState({ selectedData: val });
     }
@@ -100,6 +106,7 @@ class PageContextProvider extends Component {
         onClearSearch: this.handleClearSearch,
         onSetSelectedData: this.handleSetSelectedData,
         onShowFormDialog: this.handleShowFormDialog,
+        onShowDetailDialog: this.handleShowDetailDialog,
         onDeleteData: this.handleDeleteData,
         onExportEmployee: this.handleExportEmployee,
     });
